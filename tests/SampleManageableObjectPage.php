@@ -25,7 +25,6 @@ class SampleManageableObjectPage_Controller extends Page_Controller implements T
      * @var array
      */
     private static $extensions = [
-        'CollectionExtension',
         'ManageableDataObjectExtension',
     ];
 
