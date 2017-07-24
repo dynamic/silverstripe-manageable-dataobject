@@ -1,0 +1,6 @@
+SampleManageableObjectPage:
+  one:
+    Title: 'Manager Page'
+SampleManageableDataObject:
+  one:
+    Title: 'MDO 1'
