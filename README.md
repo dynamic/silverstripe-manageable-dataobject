@@ -4,6 +4,13 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dynamic/silverstripe-manageable-dataobject/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dynamic/silverstripe-manageable-dataobject/?branch=master)
 [![codecov](https://codecov.io/gh/dynamic/silverstripe-manageable-dataobject/branch/master/graph/badge.svg)](https://codecov.io/gh/dynamic/silverstripe-manageable-dataobject)
 
+[![Latest Stable Version](https://poser.pugx.org/dynamic/silverstripe-manageable-dataobject/v/stable)](https://packagist.org/packages/dynamic/silverstripe-manageable-dataobject)
+[![Total Downloads](https://poser.pugx.org/dynamic/silverstripe-manageable-dataobject/downloads)](https://packagist.org/packages/dynamic/silverstripe-manageable-dataobject)
+[![Latest Unstable Version](https://poser.pugx.org/dynamic/silverstripe-manageable-dataobject/v/unstable)](https://packagist.org/packages/dynamic/silverstripe-manageable-dataobject)
+[![License](https://poser.pugx.org/dynamic/silverstripe-manageable-dataobject/license)](https://packagist.org/packages/dynamic/silverstripe-manageable-dataobject)
+[![Monthly Downloads](https://poser.pugx.org/dynamic/silverstripe-manageable-dataobject/d/monthly)](https://packagist.org/packages/dynamic/silverstripe-manageable-dataobject)
+[![Daily Downloads](https://poser.pugx.org/dynamic/silverstripe-manageable-dataobject/d/daily)](https://packagist.org/packages/dynamic/silverstripe-manageable-dataobject)
+
 Allow front-end management of DataObjects.
 
 ## Requirements
