@@ -95,6 +95,9 @@ class ManageableDataObjectExtension extends Extension
     public function ManageableDataObjectForm($object = null)
     {
         $model = $this->owner->config()->get('managed_object');
+        $field = ($this->owner->config()->get('query_field'))
+            ? $this->owner->config()->get('query_field')
+            : 'ID';
         $object = ($object !== null && $object instanceof $model && $object->exists())
             ? $object
             : Injector::inst()->create($model);
@@ -106,7 +109,7 @@ class ManageableDataObjectExtension extends Extension
         );
 
         if ($object->exists()) {
-            $form->Fields()->push(HiddenField::create('ID'));
+            $form->Fields()->push(HiddenField::create($field, $object->$field));
             $form->loadDataFrom($object);
         }
 
@@ -117,17 +120,20 @@ class ManageableDataObjectExtension extends Extension
      * Save object
      *
      * @param $data
-     * @param $form
+     * @param Form $form
      *
      * @return SS_HTTPResponse
      */
-    public function doSaveObject($data, $form)
+    public function doSaveObject($data, Form $form)
     {
 
         $model = $this->owner->config()->get('managed_object');
 
         if (isset($data['ID']) && $data['ID']) {
-            $object = $model::get()->byID($data['ID']);
+            $field = ($this->owner->config()->get('query_field'))
+                ? $this->owner->config()->get('query_field')
+                : 'ID';
+            $object = $model::get()->filter($field, $data['ID'])->first();
         } else {
             $object = $model::create();
             // write on create to relations are saved on final write (needs ID)
@@ -136,7 +142,11 @@ class ManageableDataObjectExtension extends Extension
 
         $form->saveInto($object);
 
+        $this->owner->extend('updateObjectPreSave', $data, $object);
+
         $object->write();
+
+        $this->owner->extend('updateObjectPostSave', $data, $object);
 
         return $this->owner->redirect($object->Link());
     }
@@ -152,7 +162,10 @@ class ManageableDataObjectExtension extends Extension
         }
 
         $class = $this->owner->config()->get('managed_object');
-        if (!$record = $class::get()->byID($id)) {
+        $field = ($this->owner->config()->get('query_field'))
+            ? $this->owner->config()->get('query_field')
+            : 'ID';
+        if (!$record = $class::get()->filter($field, $id)->first()) {
             return false;
         }
 

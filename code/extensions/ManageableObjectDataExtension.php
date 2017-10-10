@@ -41,7 +41,11 @@ class ManageableObjectDataExtension extends DataExtension
     public function getEditLink()
     {
         if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canEdit(Member::currentUser())) {
-            return Controller::join_links($this->owner->getListingPage()->Link('edit'), $this->owner->ID);
+            $field = ($this->owner->config()->get('query_field'))
+                ? $this->owner->config()->get('query_field')
+                : 'ID';
+
+            return Controller::join_links($this->owner->getListingPage()->Link('edit'), $this->owner->$field);
         }
 
         return false;
@@ -53,7 +57,11 @@ class ManageableObjectDataExtension extends DataExtension
     public function getDeleteLink()
     {
         if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canDelete(Member::currentUser())) {
-            return Controller::join_links($this->owner->getListingPage()->Link('delete'), $this->owner->ID);
+            $field = ($this->owner->config()->get('query_field'))
+                ? $this->owner->config()->get('query_field')
+                : 'ID';
+
+            return Controller::join_links($this->owner->getListingPage()->Link('delete'), $this->owner->$field);
         }
 
         return false;
