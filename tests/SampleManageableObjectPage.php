@@ -25,13 +25,13 @@ class SampleManageableObjectPage_Controller extends Page_Controller implements T
      * @var array
      */
     private static $extensions = [
-        'ManageableDataObjectExtension',
+        ManageableDataObjectExtension::class
     ];
 
     /**
      * @var string
      */
-    private static $managed_object = 'SampleManageableDataObject';
+    private static $managed_object = SampleManageableDataObject::class;
 
     /**
      *

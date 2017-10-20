@@ -9,14 +9,14 @@ class SampleManageableDataObject extends DataObject implements PermissionProvide
     /**
      * @var string
      */
-    private static $listing_page_class = 'SampleManageableObjectPage';
+    private static $listing_page_class = SampleManageableObjectPage::class;
 
     /**
      * @var array
      */
     private static $extensions = [
-        'Dynamic\\ViewableDataObject\\Extensions\\ViewableDataObject',
-        'ManageableObjectDataExtension',
+        \Dynamic\ViewableDataObject\Extensions\ViewableDataObject::class,
+        ManageableObjectDataExtension::class,
     ];
 
     /**

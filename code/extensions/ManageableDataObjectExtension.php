@@ -31,7 +31,9 @@ class ManageableDataObjectExtension extends Extension
             $form->Actions()->push(new CancelFormAction($this->owner->Link(), 'Cancel'));
 
             return $this->owner->customise(array(
-                'Title' => 'Add new ' . $object->singular_name(),
+                'Title' => ($this->owner->config()->get('add_item_title'))
+                    ? $this->owner->config()->get('add_item_title')
+                    : 'Add new ' . $object->singular_name(),
                 'ManageableDataObjectForm' => $form
             ));
         }
@@ -105,7 +107,7 @@ class ManageableDataObjectExtension extends Extension
         $form = ManageableDataObjectForm::create(
             $this->owner,
             'ManageableDataObjectForm',
-            $model
+            $object
         );
 
         if ($object->exists()) {

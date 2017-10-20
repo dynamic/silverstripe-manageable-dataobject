@@ -9,14 +9,14 @@ class ManageableObjectDataExtensionTest extends SapphireTest
     /**
      * @var string
      */
-    protected static $fixture_file = 'manageable-dataobject/tests/fixtures.yml';
+    protected static $fixture_file = 'fixtures.yml';
 
     /**
      * @var array
      */
     protected $extraDataObjects = [
-        'SampleManageableDataObject',
-        'SampleManageableObjectPage',
+        SampleManageableDataObject::class,
+        SampleManageableObjectPage::class,
     ];
 
     /**
@@ -34,8 +34,8 @@ class ManageableObjectDataExtensionTest extends SapphireTest
      */
     public function testGetListingPage()
     {
-        $this->assertEquals('SampleManageableObjectPage',
-            Injector::inst()->get('SampleManageableDataObject')->getListingPage());
+        $this->assertEquals(SampleManageableObjectPage::class,
+            Injector::inst()->get(SampleManageableDataObject::class)->getListingPage());
     }
 
     /**
@@ -43,8 +43,8 @@ class ManageableObjectDataExtensionTest extends SapphireTest
      */
     public function testGetAddLink()
     {
-        $page = $this->objFromFixture('SampleManageableObjectPage', 'one');
-        $object = $this->objFromFixture('SampleManageableDataObject', 'one');
+        $page = $this->objFromFixture(SampleManageableObjectPage::class, 'one');
+        $object = $this->objFromFixture(SampleManageableDataObject::class, 'one');
 
         $this->logOut();
         $this->assertFalse($object->getAddLink());
@@ -61,8 +61,8 @@ class ManageableObjectDataExtensionTest extends SapphireTest
      */
     public function testGetEditLink()
     {
-        $page = $this->objFromFixture('SampleManageableObjectPage', 'one');
-        $object = $this->objFromFixture('SampleManageableDataObject', 'one');
+        $page = $this->objFromFixture(SampleManageableObjectPage::class, 'one');
+        $object = $this->objFromFixture(SampleManageableDataObject::class, 'one');
 
         $this->logOut();
         $this->assertFalse($object->getEditLink());
@@ -79,8 +79,8 @@ class ManageableObjectDataExtensionTest extends SapphireTest
      */
     public function testGetDeleteLink()
     {
-        $page = $this->objFromFixture('SampleManageableObjectPage', 'one');
-        $object = $this->objFromFixture('SampleManageableDataObject', 'one');
+        $page = $this->objFromFixture(SampleManageableObjectPage::class, 'one');
+        $object = $this->objFromFixture(SampleManageableDataObject::class, 'one');
 
         $this->logOut();
         $this->assertFalse($object->getDeleteLink());
