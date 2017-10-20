@@ -1,8 +1,5 @@
 <?php
 
-use Dynamic\ViewableDataObject\Extensions\ViewableDataObject;
-
-
 /**
  * Class SampleManageableDataObject
  */
@@ -18,7 +15,7 @@ class SampleManageableDataObject extends DataObject implements PermissionProvide
      * @var array
      */
     private static $extensions = [
-        ViewableDataObject::class,
+        \Dynamic\ViewableDataObject\Extensions\ViewableDataObject::class,
         ManageableObjectDataExtension::class,
     ];
 
