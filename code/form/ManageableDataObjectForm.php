@@ -11,12 +11,13 @@ class ManageableDataObjectForm extends Form
      *
      * @param Controller $controller
      * @param string $name
-     * @param FieldList $model
+     * @param FieldList $object
      */
-    public function __construct(Controller $controller, $name, $model)
+    public function __construct(Controller $controller, $name, $object)
     {
-        $object = Injector::inst()->get($model);
-
+        if (is_string($object) && class_exists($object)) {
+            $object = Injector::inst()->get($object);
+        }
         $fields = $object->getFrontEndFields();
         $actions = $object->getFrontEndActions();
         if (!$actions->dataFieldByName('action_doSaveObject')) {

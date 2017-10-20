@@ -9,14 +9,14 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     /**
      * @var string
      */
-    protected static $fixture_file = 'manageable-dataobject/tests/fixtures.yml';
+    protected static $fixture_file = 'fixtures.yml';
 
     /**
      * @var array
      */
     protected $extraDataObjects = [
-        'SampleManageableDataObject',
-        'SampleManageableObjectPage',
+        SampleManageableDataObject::class,
+        SampleManageableObjectPage::class,
     ];
 
     /**
@@ -26,7 +26,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     {
         parent::setUp();
         // Suppress themes
-        Config::inst()->remove('SSViewer', 'theme');
+        Config::inst()->remove(SSViewer::class, 'theme');
     }//*/
 
     /**
@@ -56,7 +56,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     public function testEdit()
     {
         $this->logInWithPermission('MDO_Edit');
-        $object = $this->objFromFixture('SampleManageableDataObject', 'one');
+        $object = $this->objFromFixture(SampleManageableDataObject::class, 'one');
         $response = $this->get('/SampleManageableObjectPage_Controller/edit/' . $object->ID);
         $this->assertEquals(200, $response->getStatusCode());
         $this->logOut();
@@ -95,7 +95,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     {
         $this->logInWithPermission('MDO_Create');
 
-        $controller = SamplemanageableObjectPage_Controller::create($this->objFromFixture('SampleManageableObjectPage', 'one'));
+        $controller = SamplemanageableObjectPage_Controller::create($this->objFromFixture(SampleManageableObjectPage::class, 'one'));
         $form = $controller->Form();
 
         $response = $this->get('/SampleManageableObjectPage_Controller/add');
@@ -105,7 +105,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
         $responseSubmission = $this->submitForm('ManageableDataObjectForm_Form', 'action_doSaveObject', $data);
 
         $record = SampleManageableDataObject::get()->filter($data)->first();
-        $this->assertInstanceOf('SampleManageableDataObject', $record);
+        $this->assertInstanceOf(SampleManageableDataObject::class, $record);
         $this->assertTrue($record->exists());//*/
     }
 
