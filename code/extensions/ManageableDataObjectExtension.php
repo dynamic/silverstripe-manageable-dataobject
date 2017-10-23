@@ -167,9 +167,10 @@ class ManageableDataObjectExtension extends Extension
         }
 
         $class = $this->owner->config()->get('managed_object');
-        $field = ($this->owner->config()->get('query_field'))
-            ? $this->owner->config()->get('query_field')
+        $field = (Injector::inst()->get($class)->config()->get('query_field'))
+            ? Injector::inst()->get($class)->config()->get('query_field')
             : 'ID';
+
         if (!$record = $class::get()->filter($field, $id)->first()) {
             return false;
         }
