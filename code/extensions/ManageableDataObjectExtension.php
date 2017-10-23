@@ -138,6 +138,9 @@ class ManageableDataObjectExtension extends Extension
             $object = $model::get()->filter($field, $data['ID'])->first();
         } else {
             $object = $model::create();
+            if ($object->hasDatabaseField('URLSegment')) {
+                $object->URLSegment = Injector::inst()->create(SiteTree::class)->generateURLSegment($data['Title']);
+            }
             // write on create to relations are saved on final write (needs ID)
             $object->write();
         }
