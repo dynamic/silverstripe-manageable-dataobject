@@ -30,12 +30,12 @@ class ManageableDataObjectExtension extends Extension
             $form = $this->ManageableDataObjectForm();
             $form->Actions()->push(new CancelFormAction($this->owner->Link(), 'Cancel'));
 
-            return $this->owner->customise(array(
+            return $this->owner->customise([
                 'Title' => ($this->owner->config()->get('add_item_title'))
                     ? $this->owner->config()->get('add_item_title')
                     : 'Add new ' . $object->singular_name(),
-                'ManageableDataObjectForm' => $form
-            ));
+                'ManageableDataObjectForm' => $form,
+            ]);
         }
 
         return Security::permissionFailure($this->owner, "You don't have permission to add records.");
@@ -54,11 +54,11 @@ class ManageableDataObjectExtension extends Extension
                 // get Form
                 $form = $this->ManageableDataObjectForm($item);
 
-                return $this->owner->customise(array(
+                return $this->owner->customise([
                     'Title' => 'Edit ' . $item->singular_name(),
                     'ManageableDataObjectForm' => $form,
-                    'Item' => $item
-                ));
+                    'Item' => $item,
+                ]);
             }
 
             return Security::permissionFailure($this->owner, "You don't have permission to edit this record.");
@@ -76,7 +76,11 @@ class ManageableDataObjectExtension extends Extension
     {
         if ($item = $this->getCurrentItem()) {
             if ($item->canDelete(Member::currentUser())) {
-                $item->delete();
+                if ($item->hasMethod('softDelete')) {
+                    $item->softDelete();
+                } else {
+                    $item->delete();
+                }
 
                 return $this->owner->redirect($this->owner->Link());
             }
