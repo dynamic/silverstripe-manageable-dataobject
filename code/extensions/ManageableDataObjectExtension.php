@@ -28,7 +28,9 @@ class ManageableDataObjectExtension extends Extension
         if ($object->canCreate(Member::currentUser())) {
 
             $form = $this->ManageableDataObjectForm();
-            $form->Actions()->push(new CancelFormAction($this->owner->Link(), 'Cancel'));
+            if($object->config()->get('add_form_cancel_button')){
+                $form->Actions()->push(new CancelFormAction($this->owner->Link(), 'Cancel'));
+            }
 
             return $this->owner->customise([
                 'Title' => ($this->owner->config()->get('add_item_title'))
