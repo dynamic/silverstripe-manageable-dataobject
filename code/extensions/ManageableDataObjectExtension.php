@@ -153,11 +153,11 @@ class ManageableDataObjectExtension extends Extension
 
         $form->saveInto($object);
 
-        $this->owner->extend('updateObjectPreSave', $data, $object);
+        $this->owner->extend('updateObjectPreSave', $data, $object, $form);
 
         $object->write();
 
-        $this->owner->extend('updateObjectPostSave', $data, $object);
+        $this->owner->extend('updateObjectPostSave', $data, $object, $form);
 
         return $this->owner->redirect($object->Link());
     }
