@@ -1,37 +1,43 @@
 {
-  "name": "dynamic/silverstripe-manageable-dataobject",
-  "description": "Allows frontend DataObject management",
-  "authors": [
-    {
-      "name": "Dynamic",
-      "email": "dev@dynamicagency.com",
-      "homepage": "http://www.dynamicagency.com"
-    }
-  ],
-  "keywords": [
-    "silverstripe"
-  ],
-  "type": "silverstripe-module",
-  "license": "BSD-3-Clause",
-  "require": {
-    "silverstripe/cms": "^4.0",
-    "silverstripe/framework": "^4.0",
-    "dynamic/viewable-dataobject": "^2.0",
-    "dynamic/silverstripe-additional-formfields": "^2.0"
-  },
-  "require-dev": {
-	  "phpunit/PHPUnit": "^5.7",
-	  "squizlabs/php_codesniffer": "*"
-  },
-  "config": {
-    "process-timeout": 600
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "extra": {
-    "installer-name": "manageable-dataobject",
-    "branch-alias": {
-      "dev-master": "2.0.x-dev"
-    }
-  }
+	"name": "dynamic/silverstripe-manageable-dataobject",
+	"description": "Allows frontend DataObject management",
+	"authors": [
+		{
+			"name": "Dynamic",
+			"email": "dev@dynamicagency.com",
+			"homepage": "http://www.dynamicagency.com"
+		}
+	],
+	"keywords": [
+		"silverstripe"
+	],
+	"type": "silverstripe-vendormodule",
+	"license": "BSD-3-Clause",
+	"require": {
+		"silverstripe/recipe-cms": "^1.0@dev || ^4.0@dev",
+		"silverstripe/vendor-plugin": "^1@dev",
+		"dynamic/viewable-dataobject": "^2.0",
+		"dynamic/silverstripe-additional-formfields": "^2.0"
+	},
+	"require-dev": {
+		"phpunit/PHPUnit": "^5.7",
+		"squizlabs/php_codesniffer": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Dynamic\\ManageableDataObject\\": "src/",
+			"Dynamic\\ManageableDataObject\\Test\\": "tests/"
+		}
+	},
+	"config": {
+		"process-timeout": 600
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"extra": {
+		"installer-name": "manageable-dataobject",
+		"branch-alias": {
+			"dev-master": "2.0.x-dev"
+		}
+	}
 }
