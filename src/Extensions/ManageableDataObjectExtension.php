@@ -2,7 +2,7 @@
 
 namespace Dynamic\ManageableDataObject\Extensions;
 
-use Dynamic\CoreTools\Form\CancelFormAction;
+use Dynamic\AdditionalFormFields\Form\CancelFormAction;
 use Dynamic\ManageableDataObject\Form\ManageableDataObjectForm;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Extension;
@@ -207,5 +207,4 @@ class ManageableDataObjectExtension extends Extension
 
         return $record;
     }
-
 }
