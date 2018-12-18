@@ -22,6 +22,11 @@ use SilverStripe\Security\PermissionProvider;
 class SampleManageableDataObject extends DataObject implements PermissionProvider, ManageableDataObjectInterface, TestOnly
 {
 
+	/**
+	 * @var string
+	 */
+	private static $table_name = 'SampleManageableDataObject';
+
     /**
      * @var string
      */

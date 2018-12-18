@@ -10,4 +10,8 @@ use SilverStripe\Dev\TestOnly;
  */
 class SampleManageableObjectPage extends \Page implements TestOnly
 {
+	/**
+	 * @var string
+	 */
+	private static $table_name = 'SampleManageableObjectPage';
 }
