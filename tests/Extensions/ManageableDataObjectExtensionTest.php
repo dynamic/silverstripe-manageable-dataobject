@@ -42,6 +42,16 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
 	}
 
 	/**
+	 * Ensure any current member is logged out
+	 */
+	public function logOut()
+	{
+		if ($member = Security::getCurrentUser()) {
+			Security::setCurrentUser(null);
+		}
+	}
+
+	/**
 	 *
 	 */
 	public function testAdd()
@@ -53,16 +63,6 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
 		$response = $this->get($page->Link('add'));
 		$this->assertEquals(200, $response->getStatusCode());
 		$this->logOut();
-	}
-
-	/**
-	 * Ensure any current member is logged out
-	 */
-	public function logOut()
-	{
-		if ($member = Security::getCurrentUser()) {
-			Security::setCurrentUser(null);
-		}
 	}
 
 	/**
@@ -113,7 +113,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
 
 		$success = $this->get(Controller::join_links(
 			$page->Link(),
-			'edit',
+			'delete',
 			$id
 		));
 		$this->assertEquals(200, $success->getStatusCode());
