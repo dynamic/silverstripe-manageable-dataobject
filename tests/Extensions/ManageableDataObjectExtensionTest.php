@@ -37,6 +37,8 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
 		parent::setUp();
 		// Suppress themes
 		SSViewer::config()->update('theme_enabled', false);
+		$this->session()->set('readingMode', 'Stage.Stage');
+		$this->session()->set('unsecuredDraftSite', true);
 	}
 
 	/**
