@@ -1,5 +1,13 @@
 <?php
 
+namespace Dynamic\ManageableDataObject\Test\Extensions;
+
+use Dynamic\ManageableDataObject\Test\Model\SampleManageableDataObject;
+use Dynamic\ManageableDataObject\Test\Model\SampleManageableObjectPage;
+use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Security\Security;
+use SilverStripe\View\SSViewer;
+
 /**
  * Class ManageableDataObjectExtensionTest
  */
@@ -9,7 +17,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     /**
      * @var string
      */
-    protected static $fixture_file = 'fixtures.yml';
+    protected static $fixture_file = '../fixtures.yml';
 
     /**
      * @var array
@@ -26,16 +34,16 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     {
         parent::setUp();
         // Suppress themes
-        Config::inst()->remove(SSViewer::class, 'theme');
-    }//*/
+		SSViewer::config()->update('theme_enabled', false);
+    }
 
     /**
      * Ensure any current member is logged out
      */
     public function logOut()
     {
-        if ($member = Member::currentUser()) {
-            $member->logOut();
+        if ($member = Security::getCurrentUser()) {
+			Security::setCurrentUser(null);
         }
     }
 
