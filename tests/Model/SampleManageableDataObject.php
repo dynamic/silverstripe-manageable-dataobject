@@ -1,10 +1,31 @@
 <?php
 
+namespace Dynamic\ManageableDataObject\Test\Model;
+
+use Dynamic\ManageableDataObject\Extensions\ManageableObjectDataExtension;
+use Dynamic\ManageableDataObject\Interfaces\ManageableDataObjectInterface;
+use Dynamic\ViewableDataObject\Extensions\ViewableDataObject;
+use SilverStripe\Dev\TestOnly;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\PermissionProvider;
+
 /**
  * Class SampleManageableDataObject
+ * @package Dynamic\ManageableDataObject\Test\Model
+ *
+ * @mixin ViewableDataObject
+ * @mixin ManageableObjectDataExtension
  */
 class SampleManageableDataObject extends DataObject implements PermissionProvider, ManageableDataObjectInterface, TestOnly
 {
+
+	/**
+	 * @var string
+	 */
+	private static $table_name = 'SampleManageableDataObject';
 
     /**
      * @var string
@@ -15,7 +36,7 @@ class SampleManageableDataObject extends DataObject implements PermissionProvide
      * @var array
      */
     private static $extensions = [
-        \Dynamic\ViewableDataObject\Extensions\ViewableDataObject::class,
+        ViewableDataObject::class,
         ManageableObjectDataExtension::class,
     ];
 
@@ -32,12 +53,13 @@ class SampleManageableDataObject extends DataObject implements PermissionProvide
         ];
     }
 
-    /**
-     * @param null $member
-     *
-     * @return bool|int
-     */
-    public function canCreate($member = null)
+	/**
+	 * @param null $member
+	 * @param array $context
+	 *
+	 * @return bool|int
+	 */
+    public function canCreate($member = null, $context = array())
     {
         return Permission::check('MDO_Create', 'any', $member);
     }
@@ -97,5 +119,4 @@ class SampleManageableDataObject extends DataObject implements PermissionProvide
     {
         return RequiredFields::create();
     }
-
 }

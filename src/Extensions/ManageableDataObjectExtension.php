@@ -1,5 +1,16 @@
 <?php
 
+namespace Dynamic\ManageableDataObject\Extensions;
+
+use Dynamic\AdditionalFormFields\Form\CancelFormAction;
+use Dynamic\ManageableDataObject\Form\ManageableDataObjectForm;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Core\Extension;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Security\Security;
+
 /**
  * Class ManageableDataObjectExtension
  */
@@ -19,13 +30,13 @@ class ManageableDataObjectExtension extends Extension
     /**
      * Add object
      *
-     * @return SS_HTTPResponse|ViewableData_Customised
+     * @return \SilverStripe\Control\HTTPResponse|\SilverStripe\View\ViewableData_Customised
      */
     public function add()
     {
         $model = $this->owner->config()->get('managed_object');
         $object = Injector::inst()->get($model);
-        if ($object->canCreate(Member::currentUser())) {
+        if ($object->canCreate(Security::getCurrentUser())) {
 
             $form = $this->ManageableDataObjectForm();
             if($object->config()->get('add_form_cancel_button')){
@@ -40,18 +51,21 @@ class ManageableDataObjectExtension extends Extension
             ]);
         }
 
-        return Security::permissionFailure($this->owner, "You don't have permission to add records.");
+        return Security::permissionFailure(
+        	$this->owner,
+			"You don't have permission to add records."
+		);
     }
 
     /**
      * Edit object
      *
-     * @return SS_HTTPResponse|ViewableData_Customised
+     * @return \SilverStripe\Control\HTTPResponse|\SilverStripe\View\ViewableData_Customised
      */
     public function edit()
     {
         if ($item = $this->getCurrentItem()) {
-            if ($item->canEdit(Member::currentUser())) {
+            if ($item->canEdit(Security::getCurrentUser())) {
 
                 // get Form
                 $form = $this->ManageableDataObjectForm($item);
@@ -63,7 +77,10 @@ class ManageableDataObjectExtension extends Extension
                 ]);
             }
 
-            return Security::permissionFailure($this->owner, "You don't have permission to edit this record.");
+            return Security::permissionFailure(
+            	$this->owner,
+				"You don't have permission to edit this record."
+			);
         }
 
         return $this->owner->httpError(404);
@@ -72,12 +89,12 @@ class ManageableDataObjectExtension extends Extension
     /**
      * Delete Object
      *
-     * @return SS_HTTPResponse
+     * @return \SilverStripe\Control\HTTPResponse
      */
     public function delete()
     {
         if ($item = $this->getCurrentItem()) {
-            if ($item->canDelete(Member::currentUser())) {
+            if ($item->canDelete(Security::getCurrentUser())) {
                 if ($item->hasMethod('softDelete')) {
                     $item->softDelete();
                 } else {
@@ -87,7 +104,10 @@ class ManageableDataObjectExtension extends Extension
                 return $this->owner->redirect($this->owner->Link());
             }
 
-            return Security::permissionFailure($this->owner, "You don't have permission to delete this record.");
+            return Security::permissionFailure(
+            	$this->owner,
+				"You don't have permission to delete this record."
+			);
         }
 
         return $this->owner->httpError(404);
@@ -96,7 +116,7 @@ class ManageableDataObjectExtension extends Extension
     /**
      * Main GridObject Form. Fields loaded via getFrontEndFields method on each Object
      *
-     * @param $object
+     * @param \SilverStripe\ORM\DataObject $object
      *
      * @return ManageableDataObjectForm
      */
@@ -124,19 +144,21 @@ class ManageableDataObjectExtension extends Extension
         return $form;
     }
 
-    /**
-     * Save object
-     *
-     * @param $data
-     * @param Form $form
-     *
-     * @return SS_HTTPResponse
-     */
+	/**
+	 * Save object
+	 *
+	 * @param $data
+	 * @param Form $form
+	 *
+	 * @return \SilverStripe\Control\HTTPResponse
+	 * @throws \SilverStripe\ORM\ValidationException
+	 */
     public function doSaveObject($data, Form $form)
     {
-
+		/** @var \SilverStripe\ORM\DataObject $model */
         $model = $this->owner->config()->get('managed_object');
 
+        /** @var \SilverStripe\ORM\DataObject|\Dynamic\ViewableDataObject\Extensions\ViewableDataObject $object */
         if (isset($data['ID']) && $data['ID']) {
             $field = ($this->owner->config()->get('query_field'))
                 ? $this->owner->config()->get('query_field')
@@ -145,7 +167,8 @@ class ManageableDataObjectExtension extends Extension
         } else {
             $object = $model::create();
             if ($object->hasDatabaseField('URLSegment')) {
-                $object->URLSegment = Injector::inst()->create(SiteTree::class)->generateURLSegment($data['Title']);
+                $object->URLSegment = Injector::inst()->create(SiteTree::class)
+					->generateURLSegment($data['Title']);
             }
             // write on create to relations are saved on final write (needs ID)
             $object->write();
@@ -164,7 +187,7 @@ class ManageableDataObjectExtension extends Extension
 
 
     /**
-     * @return bool|DataObject
+     * @return bool|\SilverStripe\ORM\DataObject
      */
     protected function getCurrentItem()
     {
@@ -172,6 +195,7 @@ class ManageableDataObjectExtension extends Extension
             return false;
         }
 
+        /** @var string|\SilverStripe\ORM\DataObject $class */
         $class = $this->owner->config()->get('managed_object');
         $field = (Injector::inst()->get($class)->config()->get('query_field'))
             ? Injector::inst()->get($class)->config()->get('query_field')
@@ -183,5 +207,4 @@ class ManageableDataObjectExtension extends Extension
 
         return $record;
     }
-
 }

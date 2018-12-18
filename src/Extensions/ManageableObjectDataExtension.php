@@ -1,7 +1,15 @@
 <?php
 
+namespace Dynamic\ManageableDataObject\Extensions;
+
+use SilverStripe\Control\Controller;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Security\Security;
+
 /**
- * Class GridObject
+ * Class ManageableObjectDataExtension
+ *
+ * @property \Dynamic\ManageableDataObject\Extensions\ManageableObjectDataExtension|\SilverStripe\ORM\DataObject $owner
  */
 class ManageableObjectDataExtension extends DataExtension
 {
@@ -28,7 +36,7 @@ class ManageableObjectDataExtension extends DataExtension
      */
     public function getAddLink()
     {
-        if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canCreate(Member::currentUser())) {
+        if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canCreate(Security::getCurrentUser())) {
             return $this->owner->getListingPage()->Link('add');
         }
 
@@ -40,7 +48,7 @@ class ManageableObjectDataExtension extends DataExtension
      */
     public function getEditLink()
     {
-        if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canEdit(Member::currentUser())) {
+        if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canEdit(Security::getCurrentUser())) {
             $field = ($this->owner->config()->get('query_field'))
                 ? $this->owner->config()->get('query_field')
                 : 'ID';
@@ -56,7 +64,7 @@ class ManageableObjectDataExtension extends DataExtension
      */
     public function getDeleteLink()
     {
-        if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canDelete(Member::currentUser())) {
+        if ($this->owner->getListingPage()->hasMethod('Link') && $this->owner->canDelete(Security::getCurrentUser())) {
             $field = ($this->owner->config()->get('query_field'))
                 ? $this->owner->config()->get('query_field')
                 : 'ID';

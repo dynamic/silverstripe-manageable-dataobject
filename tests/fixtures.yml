@@ -1,6 +1,7 @@
-SampleManageableObjectPage:
+Dynamic\ManageableDataObject\Test\Model\SampleManageableObjectPage:
   one:
     Title: 'Manager Page'
-SampleManageableDataObject:
+
+Dynamic\ManageableDataObject\Test\Model\SampleManageableDataObject:
   one:
     Title: 'MDO 1'

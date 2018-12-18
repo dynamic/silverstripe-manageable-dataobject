@@ -44,6 +44,15 @@ To utilize ManageableDataObject you must implement `PermissionProvider` and meth
 ```php
 <?php
 
+namespace Foo\Bar;
+
+use Dynamic\ManageableDataObject\Interfaces\ManageableDataObjectInterface;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\PermissionProvider;
+
 class MyManageableObject extends DataObject implements PermissionProvider, ManageableDataObjectInterface
 {
 
@@ -62,10 +71,11 @@ class MyManageableObject extends DataObject implements PermissionProvider, Manag
 
     /**
      * @param null $member
+     * @param array $context
      *
      * @return bool|int
      */
-    public function canCreate($member = null)
+    public function canCreate($member = null, $context = array())
     {
         return Permission::check('MDO_Create', 'any', $member);
     }
@@ -125,7 +135,6 @@ class MyManageableObject extends DataObject implements PermissionProvider, Manag
     {
         return RequiredFields::create();
     }
-
 }
 ```
 
