@@ -22,7 +22,7 @@ class ManageableDataObjectExtensionTest extends FunctionalTest
     /**
      * @var array
      */
-    protected $extraDataObjects = [
+	protected static $extra_dataobjects = [
         SampleManageableDataObject::class,
         SampleManageableObjectPage::class,
     ];

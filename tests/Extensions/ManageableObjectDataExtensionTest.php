@@ -23,7 +23,7 @@ class ManageableObjectDataExtensionTest extends SapphireTest
     /**
      * @var array
      */
-    protected $extraDataObjects = [
+	protected static $extra_dataobjects = [
         SampleManageableDataObject::class,
         SampleManageableObjectPage::class,
     ];
