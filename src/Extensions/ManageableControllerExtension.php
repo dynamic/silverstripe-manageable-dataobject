@@ -12,9 +12,9 @@ use SilverStripe\Forms\HiddenField;
 use SilverStripe\Security\Security;
 
 /**
- * Class ManageableDataObjectExtension
+ * Class ManageableControllerExtension
  */
-class ManageableDataObjectExtension extends Extension
+class ManageableControllerExtension extends Extension
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Dynamic\ManageableDataObject\Test\Model;
 
-use Dynamic\ManageableDataObject\Extensions\ManageableDataObjectExtension;
+use Dynamic\ManageableDataObject\Extensions\ManageableControllerExtension;
 use Dynamic\ManageableDataObject\Form\ManageableDataObjectForm;
 use SilverStripe\Dev\TestOnly;
 use SilverStripe\View\Requirements;
@@ -11,7 +11,7 @@ use SilverStripe\View\Requirements;
  * Class SampleManageableObjectPageController
  * @package Dynamic\ManageableDataObject\Test\Model
  *
- * @mixin ManageableDataObjectExtension
+ * @mixin ManageableControllerExtension
  */
 class SampleManageableObjectPageController extends \PageController implements TestOnly
 {
@@ -27,7 +27,7 @@ class SampleManageableObjectPageController extends \PageController implements Te
 	 * @var array
 	 */
 	private static $extensions = [
-		ManageableDataObjectExtension::class
+		ManageableControllerExtension::class
 	];
 
 	/**

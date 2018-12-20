@@ -7,11 +7,11 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Security;
 
 /**
- * Class ManageableObjectDataExtension
+ * Class ManageableObjectExtension
  *
- * @property \Dynamic\ManageableDataObject\Extensions\ManageableObjectDataExtension|\SilverStripe\ORM\DataObject $owner
+ * @property \Dynamic\ManageableDataObject\Extensions\ManageableObjectExtension|\SilverStripe\ORM\DataObject $owner
  */
-class ManageableObjectDataExtension extends DataExtension
+class ManageableObjectExtension extends DataExtension
 {
 
     /**

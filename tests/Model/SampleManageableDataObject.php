@@ -2,7 +2,7 @@
 
 namespace Dynamic\ManageableDataObject\Test\Model;
 
-use Dynamic\ManageableDataObject\Extensions\ManageableObjectDataExtension;
+use Dynamic\ManageableDataObject\Extensions\ManageableObjectExtension;
 use Dynamic\ManageableDataObject\Interfaces\ManageableDataObjectInterface;
 use Dynamic\ViewableDataObject\Extensions\ViewableDataObject;
 use SilverStripe\Dev\TestOnly;
@@ -17,7 +17,7 @@ use SilverStripe\Security\PermissionProvider;
  * @package Dynamic\ManageableDataObject\Test\Model
  *
  * @mixin ViewableDataObject
- * @mixin ManageableObjectDataExtension
+ * @mixin ManageableObjectExtension
  */
 class SampleManageableDataObject extends DataObject implements PermissionProvider, ManageableDataObjectInterface, TestOnly
 {
@@ -37,7 +37,7 @@ class SampleManageableDataObject extends DataObject implements PermissionProvide
      */
     private static $extensions = [
         ViewableDataObject::class,
-        ManageableObjectDataExtension::class,
+        ManageableObjectExtension::class,
     ];
 
     /**

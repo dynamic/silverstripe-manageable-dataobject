@@ -15,9 +15,9 @@ Allow front-end management of DataObjects.
 
 ## Requirements
 
-- SilverStripe ^3.2
-- Viewable Dataobject ^1.0
-- Additional Form Fields ^1.0
+- SilverStripe ^4.0
+- Viewable Dataobject ^2.0
+- Additional Form Fields ^2.0
 
 ## Installation
 
@@ -26,14 +26,15 @@ Allow front-end management of DataObjects.
 ## Configuration
 
 ```yml
-MyPage_Controller:
+MyPageController:
   managed_object: MyManageableObject
   extensions:
-    - ManageableDataObjectExtension
+    - Dynamic\ManageableDataObject\Extensions\ManageableControllerExtension
+
 MyManageableObject:
   extensions:
-    - Dynamic\\ViewableDataObject\\Extensions\\ViewableDataObject
-    - ManageableObjectDataExtension
+    - Dynamic\ViewableDataObject\Extensions\ViewableDataObject
+    - Dynamic\ManageableDataObject\Extensions\ManageableObjectExtension
   listing_page_class: MyPage
 ```
 
